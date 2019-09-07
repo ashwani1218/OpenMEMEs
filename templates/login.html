@@ -7,7 +7,7 @@
     <meta name="google-signin-client_id" content="965427500558-ctld04v8po18bl5stklunmrrtvn8583r.apps.googleusercontent.com">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-
+    <script src="../static/js/login.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/login.css">
@@ -21,7 +21,7 @@
           <div class="card card-signin my-5">
             <div class="card-body">
               <h5 class="card-title text-center">Sign In</h5>
-              <form class="form-signin">
+              <form class="form-signin" data-onsuccess="onSignIn">
                 <div class="form-label-group">
                   <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                   <label for="inputEmail">Email address</label>
@@ -38,7 +38,9 @@
                 </div>
                 <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
                 <hr class="my-4">
-                <button data-onsuccess="onSignIn" class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+                <!-- <button class="g-signin2 btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button> -->
                 <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
               </form>
             </div>
