@@ -1,3 +1,8 @@
+function toRegistration(){
+    window.location.href = "/registration"
+}
+
+
 function onSignIn(googleUser) {
     console.log("as")
     var profile = googleUser.getBasicProfile();
