@@ -12,13 +12,13 @@ def loginPage():
     else:
         name=request.form['name']
         email=request.form['email']
-        print(name,email,"bro")
         db.insertUser(name,email)
         return redirect(url_for('home'))
 
 @app.route("/home")
 def home():
-    return "This is the Home page"
+    rows = db.get_posts(posts=20)
+    return render_template("home.html", rows=rows)
 
 @app.route("/registration")
 def registration():
