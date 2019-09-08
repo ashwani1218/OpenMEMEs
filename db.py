@@ -49,7 +49,8 @@ def insertUser(name,email):
 
 def insertOnRegistration(name,email,password):
     """
-    This method inserts user into db when user registers
+    This method inserts user into db when user registers.
+    Returns True if user is already registered, False otherwise.
     """
     with sqlite3.connect(DB_FILE) as con:  
         cur = con.cursor()
@@ -58,6 +59,8 @@ def insertOnRegistration(name,email,password):
         if not row:
             cur.execute("INSERT into users (name, email,password) values (?,?,?)",(name,email,password))  
             con.commit() 
+            return False
+        return True
 
 
 

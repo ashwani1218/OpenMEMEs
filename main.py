@@ -31,7 +31,9 @@ def registration():
             email = request.form["email"]
             password = request.form["password"]
             pwd=str(hashlib.sha256(password.encode()).digest())
-            db.insertOnRegistration(name,email,pwd)
+            already_registered = db.insertOnRegistration(name,email,pwd)
+            if(already_registered):
+                return render_template("AlreadyRegistered.html")
             return redirect("/")
         except Exception as e:
             print(e)
