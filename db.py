@@ -10,6 +10,9 @@ def createDB():
                 email VARCHAR(20),
                 password VARCHAR(20));"""
     cur.execute(sql_command)
+    
+    
+    
     DATABASE.commit()
 
 def insertUser(name,email):
