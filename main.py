@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 from flask import Flask,escape,request,redirect,url_for,render_template, Response
 
-=======
-from flask import Flask,escape,request,redirect,url_for,render_template, Response, Session
->>>>>>> 4dc7435932b1b871cc0aaa9ff21f434ffe55700c
 import db
 
 
