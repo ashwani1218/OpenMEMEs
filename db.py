@@ -19,11 +19,6 @@ def createDB():
                 email VARCHAR(20),
                 password VARCHAR(20));"""
     cur.execute(sql_command)
-<<<<<<< HEAD
-    
-    
-    
-=======
 
     #POSTS TABLE
     sql_command = """ CREATE TABLE IF NOT EXISTS posts (
@@ -36,7 +31,6 @@ def createDB():
     """
     cur.execute(sql_command)
 
->>>>>>> 0c242186adfca8db583561c4f39b5d939e1f6cd1
     DATABASE.commit()
 
 def insertUser(name,email):
