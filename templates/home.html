@@ -5,10 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>OpenMEMEs</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="../static/css/login.css"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
 </head>
 <body>
+
     {% for row in rows %}
-        {{row[2]}}
+    <div class="container">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title"><strong>
+                            {{row[2]}}
+                    </strong></h3>
+                </div>
+                <div class="card-body">
+                   <img 
+                    height="200px"
+                    width="200px"
+                    src={{row[3]}} 
+                    alt="Image" >
+                </div>
+                <div class="card-footer">
+                    <strong>Posted by Ashwani Pandey</strong>
+                </div>
+            </div>
+        </div>
     {% endfor %}
+    
 </body>
 </html>
