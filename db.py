@@ -42,6 +42,15 @@ def insertUser(name,email):
             cur.execute("INSERT into users (name, email) values (?,?)",(name,email))  
             con.commit()  
 
+def insertUser(name,email,password):
+    with sqlite3.connect(DB_FILE) as con:  
+        cur = con.cursor()
+        cur.execute("SELECT email FROM users WHERE email = ?", (email,))  
+        row = cur.fetchone()
+        if not row:
+            cur.execute("INSERT into users (name, email,password) values (?,?,?)",(name,email,password))  
+            con.commit()
+
 def get_posts(posts=10):
     with sqlite3.connect(DB_FILE) as con:
         cur = con.cursor()

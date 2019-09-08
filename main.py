@@ -21,9 +21,20 @@ def home():
     rows = db.get_posts(posts=20)
     return render_template("home.html", rows=rows)
 
-@app.route("/registration")
+@app.route("/registration",methods=['GET','POST'])
 def registration():
-    return render_template("registration.html")
+    if(request.method=='GET'):
+        return render_template("registration.html")
+    else:
+        try:
+            name=request.form['name']
+            email=request.form['email']
+            password=request.form['password']
+            db.insertUser(name,email,password)
+        except:
+            return "NOT OK" 
+        finally:
+            return render_template("/")
 
 @app.errorhandler(401)
 def custom_401(error):
