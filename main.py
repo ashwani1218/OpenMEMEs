@@ -1,5 +1,6 @@
 from flask import Flask,escape,request,redirect
 from flask import url_for,render_template, Response, session
+import hashlib
 
 import db
 
@@ -29,7 +30,8 @@ def registration():
             name = request.form["name"]
             email = request.form["email"]
             password = request.form["password"]
-            db.insertOnRegistration(name,email,password)
+            pwd=str(hashlib.sha256(password.encode()).digest())
+            db.insertOnRegistration(name,email,pwd)
             return redirect("/")
         except Exception as e:
             print(e)

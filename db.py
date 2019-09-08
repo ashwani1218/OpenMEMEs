@@ -15,9 +15,9 @@ def createDB():
     #USERS TABLE
     sql_command = """CREATE TABLE IF NOT EXISTS  users (  
                 id INTEGER PRIMARY KEY,  
-                name VARCHAR(20),  
-                email VARCHAR(20),
-                password VARCHAR(20));"""
+                name TEXT,  
+                email TEXT,
+                password TEXT);"""
     cur.execute(sql_command)
 
     #POSTS TABLE
