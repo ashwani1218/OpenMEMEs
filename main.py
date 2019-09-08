@@ -22,20 +22,20 @@ def home():
     rows = db.get_posts(posts=20)
     return render_template("home.html", rows=rows)
 
-@app.route("/registration",methods=['GET','POST'])
+@app.route("/registration", methods=['GET','POST'])
 def registration():
-    if(request.method=='GET'):
-        return render_template("registration.html")
-    else:
+    if (request.method=='POST'):
         try:
-            name=request.form['name']
-            email=request.form['email']
-            password=request.form['password']
-            db.insertUserFromRegistration(name,email,password)
-        except:
-            return "NOT OK" 
-        finally:
-            return render_template("/")
+            name = request.form["name"]
+            email = request.form["email"]
+            password = request.form["password"]
+            db.insertOnRegistration(name,email,password)
+            return redirect("/")
+        except Exception as e:
+            print(e)
+            return "something went Wrong!!!"
+    else:
+        return render_template("registration.html")
 
 @app.errorhandler(401)
 def custom_401(error):

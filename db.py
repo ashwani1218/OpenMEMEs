@@ -33,23 +33,34 @@ def createDB():
 
     DATABASE.commit()
 
+
 def insertUser(name,email):
+    """
+    This method inserts user into the db when user does a Google Oauth login
+    """
     with sqlite3.connect(DB_FILE) as con:  
         cur = con.cursor()
         cur.execute("SELECT email FROM users WHERE email = ?", (email,))  
         row = cur.fetchone()
         if not row:
             cur.execute("INSERT into users (name, email) values (?,?)",(name,email))  
-            con.commit()  
+            con.commit() 
 
-def insertUserFromRegistration(name,email,password):
+
+def insertOnRegistration(name,email,password):
+    """
+    This method inserts user into db when user registers
+    """
     with sqlite3.connect(DB_FILE) as con:  
         cur = con.cursor()
         cur.execute("SELECT email FROM users WHERE email = ?", (email,))  
         row = cur.fetchone()
         if not row:
             cur.execute("INSERT into users (name, email,password) values (?,?,?)",(name,email,password))  
-            con.commit()
+            con.commit() 
+
+
+
 
 def get_posts(posts=10):
     with sqlite3.connect(DB_FILE) as con:
