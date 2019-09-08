@@ -1,10 +1,20 @@
-from flask import Flask,escape,request, render_template
+from flask import Flask,escape,request,redirect,url_for, render_template
+import db
+
 
 app = Flask(__name__)
+db.createDB()
 
-@app.route("/")
+@app.route("/",methods=['GET','POST'])
 def loginPage():
-    return render_template("login.html")
+    if(request.method=='GET'):
+        return render_template("login.html")
+    else:
+        name=request.form['name']
+        email=request.form['email']
+        print(name,email,"bro")
+        db.insertUser(name,email)
+        return redirect(url_for('home'))
 
 @app.route("/home")
 def home():

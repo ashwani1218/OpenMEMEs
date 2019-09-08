@@ -1,21 +1,23 @@
 import sqlite3
 from flask import g
 
-DATABASE = sqlite3.connect('OpenMEMEs.db')
+def createDB():
+    DATABASE = sqlite3.connect('OpenMEMEs.db')
+    cur=DATABASE.cursor()
+    sql_command = """CREATE TABLE IF NOT EXISTS  users (  
+                id INTEGER PRIMARY KEY,  
+                name VARCHAR(20),  
+                email VARCHAR(20),
+                password VARCHAR(20));"""
+    cur.execute(sql_command)
+    DATABASE.commit()
 
-# def get_db():
-#     db = getattr(g, '_database', None)
-#     if db is None:
-#         db = g._database = DATABASE
-#     return db
+def insertUser(name,email):
+    with sqlite3.connect("OpenMEMEs.db") as con:  
+        cur = con.cursor()
+        cur.execute("SELECT email FROM users WHERE email = ?", (email,))  
+        row = cur.fetchone()
+        if not row:
+            cur.execute("INSERT into users (name, email) values (?,?)",(name,email))  
+            con.commit()  
 
-cur=DATABASE.cursor()
-
-sql_command = """CREATE TABLE users (  
-            id INTEGER PRIMARY KEY,  
-            first_name VARCHAR(20),  
-            last_name VARCHAR(30),  
-            gender CHAR(1),  
-            email VARCHAR(20)
-            phone_no INTEGER(10));"""
-            
