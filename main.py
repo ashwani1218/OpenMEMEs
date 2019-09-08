@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 from flask import Flask,escape,request,redirect,url_for,render_template, Response
 
+=======
+from flask import Flask,escape,request,redirect,url_for,render_template, Response, Session
+>>>>>>> 4dc7435932b1b871cc0aaa9ff21f434ffe55700c
 import db
 
 
@@ -14,7 +18,7 @@ def loginPage():
         name=request.form['name']
         email=request.form['email']
         db.insertUser(name,email)
-        return redirect(url_for('home'))
+        return "OK"
 
 @app.route("/home")
 def home():
