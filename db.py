@@ -42,7 +42,7 @@ def insertUser(name,email):
             cur.execute("INSERT into users (name, email) values (?,?)",(name,email))  
             con.commit()  
 
-def insertUser(name,email,password):
+def insertUserFromRegistration(name,email,password):
     with sqlite3.connect(DB_FILE) as con:  
         cur = con.cursor()
         cur.execute("SELECT email FROM users WHERE email = ?", (email,))  

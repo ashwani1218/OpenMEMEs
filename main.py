@@ -30,7 +30,7 @@ def registration():
             name=request.form['name']
             email=request.form['email']
             password=request.form['password']
-            db.insertUser(name,email,password)
+            db.insertUserFromRegistration(name,email,password)
         except:
             return "NOT OK" 
         finally:
