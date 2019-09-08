@@ -1,6 +1,12 @@
 function toRegistration(){
     window.location.href = "/registration"
 }
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
 
 function onSignIn(googleUser) {
     console.log("as")
@@ -20,7 +26,8 @@ function onSignIn(googleUser) {
         url:"/",
         success:function(data){
             console.log(data)
-            window.location.href = "/home"
+            //window.location.href = "/home"
+            window.open("/home", "_self")
         },
         error: function(data){
             console.log(data)
