@@ -20,21 +20,11 @@ function onSignIn(googleUser) {
         url:"/",
         success:function(data){
             console.log(data)
+            window.location.href = "/home"
         },
         error: function(data){
             console.log(data)
         }
     });
-    
-    // $.post("/",
-    // {
-    //  name:profile.getName(),
-    //  email:profile.getEmail()   
-    // },
-    // function(data, status){
-    //     console.log(status)
-    // });
-
-    //window.location.href = "home"
 }
   
