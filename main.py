@@ -6,10 +6,17 @@ import db
 
 
 app = Flask(__name__)
+"""
+Creates a Database is already not present
+"""
 db.createDB()
 
 @app.route("/",methods=['GET','POST'])
 def loginPage():
+    '''
+    This Method returns login page on a GET Request and registers user into the database if 
+    Google Oauth is used to login into the System
+    '''
     if(request.method=='GET'):
         return render_template("login.html")
     else:
@@ -20,20 +27,26 @@ def loginPage():
 
 @app.route("/login",methods=['POST'])
 def customLogin():
+    '''
+    This Method is the Custom Login implementation.
+    The users email address is matched in the DataBase and passwords are matched.
+    '''
     email=request.form["inputEmail"]
     password=request.form["inputPassword"]
     pwd=str(hashlib.sha256(password.encode()).digest())
-    # print(pwd,password)
     user=db.getUserByEmail(email)
-    print(user)
     if(pwd==user):
-        return redirect("/home")
-    return redirect("/")
+        return redirect("/home") #If passwords match redirect to the home page
+    return redirect("/")         #Else redirect back to the login page. Change this return method to alert invalid Credentials
+
     
 
 
 @app.route("/home")
 def home():
+    '''
+    This method is used to diplay the home page.
+    '''
     rows = db.get_posts(posts=20)
     return render_template("home.html", rows=rows)
 
