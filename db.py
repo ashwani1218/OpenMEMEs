@@ -62,11 +62,15 @@ def insertOnRegistration(name,email,password):
             return False
         return True
 
-
-
-
 def get_posts(posts=10):
     with sqlite3.connect(DB_FILE) as con:
         cur = con.cursor()
         cur.execute("SELECT * FROM posts LIMIT ?", (posts,))
         return cur.fetchall()
+
+def getUserByEmail(email):
+     with sqlite3.connect(DB_FILE) as con:
+        cur = con.cursor()
+        cur.execute("SELECT password FROM users Where email=? ",(email,))
+        password = cur.fetchone()[0]
+        return password

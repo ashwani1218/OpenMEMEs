@@ -6,7 +6,8 @@ function signOut() {
     auth2.signOut().then(function () {
       console.log('User signed out.');
     });
-  }
+}
+
 
 function onSignIn(googleUser) {
     console.log("as")

@@ -18,6 +18,20 @@ def loginPage():
         db.insertUser(name,email)
         return "OK"
 
+@app.route("/login",methods=['POST'])
+def customLogin():
+    email=request.form["inputEmail"]
+    password=request.form["inputPassword"]
+    pwd=str(hashlib.sha256(password.encode()).digest())
+    # print(pwd,password)
+    user=db.getUserByEmail(email)
+    print(user)
+    if(pwd==user):
+        return redirect("/home")
+    return redirect("/")
+    
+
+
 @app.route("/home")
 def home():
     rows = db.get_posts(posts=20)
@@ -31,6 +45,7 @@ def registration():
             email = request.form["email"]
             password = request.form["password"]
             pwd=str(hashlib.sha256(password.encode()).digest())
+            print(pwd)
             already_registered = db.insertOnRegistration(name,email,pwd)
             if(already_registered):
                 return render_template("AlreadyRegistered.html")
