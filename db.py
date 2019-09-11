@@ -68,6 +68,16 @@ def get_posts(posts=10):
         cur.execute("SELECT * FROM posts LIMIT ?", (posts,))
         return cur.fetchall()
 
+def new_post(postText):
+    with sqlite3.connect(DB_FILE) as con:
+        cur = con.cursor()
+        try:
+            cur.execute("Insert into posts (user_id,post,post_image,post_video) values (?,?,?,?)",("NULL",postText,"NULL","NULL"))
+            con.commit()
+            return True
+        except:
+            return False
+
 def getUserByEmail(email):
      with sqlite3.connect(DB_FILE) as con:
         cur = con.cursor()

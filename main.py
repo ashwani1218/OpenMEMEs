@@ -69,6 +69,22 @@ def registration():
     else:
         return render_template("registration.html")
 
+
+@app.route("/newpost",methods=["GET","POST"])
+def newPost():
+    if(request.method=="GET"):
+        return render_template("newPost.html")
+    else:
+        try:    
+            postText=request.form["postText"]
+            post = db.new_post(postText)
+            print(post)
+            if(post):
+                return redirect("/home")
+            return render_template("error.html")
+        except Exception as e:
+            print(e)
+            
 @app.errorhandler(401)
 def custom_401(error):
     return Response('You tried to access something that shouldn\'t be accessed', 401, {'WWW-Authenticate':'Basic realm="Login Required"'})

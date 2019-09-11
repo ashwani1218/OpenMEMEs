@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="google-signin-client_id" content="965427500558-ctld04v8po18bl5stklunmrrtvn8583r.apps.googleusercontent.com">
-    <title>OpenMEMEs</title>
+    <title>New Post</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="../static/css/login.css"> -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     
 </head>
@@ -22,41 +20,29 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="{{url_for('home')}}"><i class="fas fa-home"></i>Home <span class="sr-only">(current)</span></a>
             </div>
-            <!-- <div class="navbar-nav " style="margin-right: 20px;">
-            </div> -->
-            
-            <div class="navbar-nav  ml-auto" style="margin-right: 60px;" >
-                <a class="nav-item nav-link active" href="{{url_for('newPost')}}" style="margin-right: 20px;"><i class="fas fa-plus"></i>New Post <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link active" style="text-align: left" href="#" onclick="signOut()"><i class="fas fa-sign-out-alt"></i>logout<span class="sr-only">(current)</span></a>
+            <div class="navbar-nav  ml-auto" style="margin-right: 60px;">
+                <a class="nav-item nav-link active" href="{{url_for('home')}}" style="margin-right: 20px;">
+                    <i class="fas fa-plus"></i>New Post 
+                    <span class="sr-only">(current)</span>
+                </a>
+                <a class="nav-item nav-link active" style="text-align: left" href="#" onclick="signOut()">
+                    <i class="fas fa-sign-out-alt"></i>logout
+                    <span class="sr-only">(current)</span>
+                </a>
             </div>
-
         </div>
     </nav>
-
-
-
-    {% for row in rows %}
     <div class="container">
-            <div class="card card-info">
-                <div class="card-success">
-                    <h3 class="card-title"><strong>
-                            {{row[2]}}
-                        </strong></h3>
-                </div>
-                <div class="card-body">
-                    <img 
-                    height="200px"
-                    width="200px"
-                    src={{row[3]}} 
-                    alt="Image" >
-                </div>
-                <div class="card-footer">
-                    <strong>Posted by Ashwani Pandey</strong>
-                </div>
+        <form action="/newpost" method="POST">
+            <div class="form-group">
+                <label for="new">New Post</label>
+                <textarea class="form-control" rows="5" id="new" name="postText" placeholder="Whats Up?"></textarea>
             </div>
-        </div>
-    {% endfor %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
     
+        
 </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=gapiInit" async defer></script>
