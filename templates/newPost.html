@@ -21,7 +21,7 @@
                 <a class="nav-item nav-link active" href="{{url_for('home')}}"><i class="fas fa-home"></i>Home <span class="sr-only">(current)</span></a>
             </div>
             <div class="navbar-nav  ml-auto" style="margin-right: 60px;">
-                <a class="nav-item nav-link active" href="{{url_for('home')}}" style="margin-right: 20px;">
+                <a class="nav-item nav-link active" href="{{url_for('newPost')}}" style="margin-right: 20px;">
                     <i class="fas fa-plus"></i>New Post 
                     <span class="sr-only">(current)</span>
                 </a>
@@ -33,7 +33,7 @@
         </div>
     </nav>
     <div class="container">
-        <form action="/newpost" method="POST">
+        <form onsubmit="" action="/newpost" method="POST">
             <div class="form-group">
                 <label for="new">New Post</label>
                 <textarea class="form-control" rows="5" id="new" name="postText" placeholder="Whats Up?"></textarea>
@@ -50,4 +50,5 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../static/js/newPost.js"></script>
 </html>

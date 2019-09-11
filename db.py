@@ -63,24 +63,64 @@ def insertOnRegistration(name,email,password):
         return True
 
 def get_posts(posts=10):
+    '''
+    This method gets all the post up-to the given limit
+    '''
     with sqlite3.connect(DB_FILE) as con:
         cur = con.cursor()
-        cur.execute("SELECT * FROM posts LIMIT ?", (posts,))
+        cur.execute("select post,post_image,post_video,name FROM posts INNER JOIN users on posts.user_id=users.id ORDER BY posts.id DESC LIMIT ?", (posts,))
         return cur.fetchall()
 
-def new_post(postText):
+def new_post(userId,postText):
+    '''
+    This method inserts post into the db.
+    '''
     with sqlite3.connect(DB_FILE) as con:
         cur = con.cursor()
         try:
-            cur.execute("Insert into posts (user_id,post,post_image,post_video) values (?,?,?,?)",("NULL",postText,"NULL","NULL"))
+            cur.execute("Insert into posts (user_id,post,post_image,post_video) values (?,?,?,?)",(userId,postText,"NULL","NULL"))
             con.commit()
             return True
         except:
             return False
 
 def getUserByEmail(email):
-     with sqlite3.connect(DB_FILE) as con:
+     '''
+    This method finds user using email
+    '''
+    with sqlite3.connect(DB_FILE) as con:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM users Where email=? ",(email,))
+        user = cur.fetchone()[0]
+        return user
+
+def getPasswordByEmail(email):
+    '''
+    This method finds user's password using email
+    '''
+    with sqlite3.connect(DB_FILE) as con:
         cur = con.cursor()
         cur.execute("SELECT password FROM users Where email=? ",(email,))
         password = cur.fetchone()[0]
         return password
+
+def getNameByEmail(email):
+    '''
+    This method finds user's name using email
+    '''
+    with sqlite3.connect(DB_FILE) as con:
+        cur = con.cursor()
+        cur.execute("SELECT name FROM users Where email=? ",(email,))
+        name = cur.fetchone()[0]
+        return name
+
+def getIdByEmail(email):
+    '''
+    This method finds user's Id using email
+    '''
+    with sqlite3.connect(DB_FILE) as con:
+        cur = con.cursor()
+        cur.execute("SELECT id FROM users Where email=? ",(email,))
+        id = cur.fetchone()[0]
+        return id
+

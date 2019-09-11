@@ -1,11 +1,10 @@
-from flask import Flask,escape,request,redirect
-from flask import url_for,render_template, Response, session
+from flask import *
 import hashlib
 
 import db
 
-
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '30ea67d46f46a8ca1e9a9d82'
 """
 Creates a Database is already not present
 """
@@ -23,6 +22,7 @@ def loginPage():
         name=request.form['name']
         email=request.form['email']
         db.insertUser(name,email)
+        session['email']=email
         return "OK"
 
 @app.route("/login",methods=['POST'])
@@ -34,13 +34,11 @@ def customLogin():
     email=request.form["inputEmail"]
     password=request.form["inputPassword"]
     pwd=str(hashlib.sha256(password.encode()).digest())
-    user=db.getUserByEmail(email)
+    user=db.getPasswordByEmail(email)
     if(pwd==user):
+        session['email']=email
         return redirect("/home") #If passwords match redirect to the home page
     return redirect("/")         #Else redirect back to the login page. Change this return method to alert invalid Credentials
-
-    
-
 
 @app.route("/home")
 def home():
@@ -52,36 +50,67 @@ def home():
 
 @app.route("/registration", methods=['GET','POST'])
 def registration():
+    '''
+    This method registers user into db and hashes the password for security.
+    If the user is already registered then user is redirected to AlreadyRegistered page
+    and then redirected to the login page after 5 seconds.
+    '''
+
     if (request.method=='POST'):
         try:
             name = request.form["name"]
             email = request.form["email"]
             password = request.form["password"]
             pwd=str(hashlib.sha256(password.encode()).digest())
-            print(pwd)
             already_registered = db.insertOnRegistration(name,email,pwd)
             if(already_registered):
                 return render_template("AlreadyRegistered.html")
             return redirect("/")
         except Exception as e:
             print(e)
-            return "something went Wrong!!!"
+            return render_template("error.html")
     else:
         return render_template("registration.html")
+
+@app.route("/userProfile")
+def userProfile():
+    try:
+        if 'email' in session:
+            email=session['email']
+            name=db.getNameByEmail(email)
+            user=db.getUserByEmail(email)
+            return render_template("userProfile.html", user=user)
+        else:
+            return redirect("/")
+    except Exception as e:
+        print(e)
+
 
 
 @app.route("/newpost",methods=["GET","POST"])
 def newPost():
+    '''
+    This method on a GET request returns new post page to update a new post.
+    On a POST request the method checks if the user is in session then gets the userId,
+    postText from the form and enters it into db.
+    If the post is successfully inserted into the db user is redirected to the home page else
+    redirected to a error page and then to the home page.
+    '''
     if(request.method=="GET"):
         return render_template("newPost.html")
     else:
-        try:    
-            postText=request.form["postText"]
-            post = db.new_post(postText)
-            print(post)
-            if(post):
-                return redirect("/home")
-            return render_template("error.html")
+        try:
+            if 'email' in session:  
+                email=session['email'] 
+                # print(email)
+                userId=db.getIdByEmail(email)
+                postText=request.form["postText"]
+                post = db.new_post(userId,postText)
+                if(post):
+                    return redirect("/home")
+                return render_template("error.html")
+            else:
+                redirect("/")
         except Exception as e:
             print(e)
             

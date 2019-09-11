@@ -3,7 +3,7 @@ function signOut() {
     auth2.signOut().then(function () {
         console.log('User signed out.');
 
-        // TODO: Change the url to home after session is implemented.
+        // TODO: Change the url to home after session is implemented.   
         window.open("/","_self");
     });
 }
