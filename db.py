@@ -85,13 +85,13 @@ def new_post(userId,postText):
             return False
 
 def getUserByEmail(email):
-     '''
+    '''
     This method finds user using email
     '''
     with sqlite3.connect(DB_FILE) as con:
         cur = con.cursor()
         cur.execute("SELECT * FROM users Where email=? ",(email,))
-        user = cur.fetchone()[0]
+        user = cur.fetchone()
         return user
 
 def getPasswordByEmail(email):

@@ -77,8 +77,9 @@ def userProfile():
     try:
         if 'email' in session:
             email=session['email']
-            name=db.getNameByEmail(email)
+            # name=db.getNameByEmail(email)
             user=db.getUserByEmail(email)
+            print(user)
             return render_template("userProfile.html", user=user)
         else:
             return redirect("/")
