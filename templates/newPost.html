@@ -33,7 +33,7 @@
         </div>
     </nav>
     <div class="container">
-        <form onsubmit="" action="/newpost" method="POST">
+        <form onsubmit="return validate()" action="/newpost" method="POST">
             <div class="form-group">
                 <label for="new">New Post</label>
                 <textarea class="form-control" rows="5" id="new" name="postText" placeholder="Whats Up?"></textarea>
