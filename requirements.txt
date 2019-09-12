@@ -1,15 +1,9 @@
-antiorm          1.2.1
-blinker          1.4
-Click            7.0
 db               0.1.1
 db-sqlite3       0.0.1
 Flask            1.1.1
 Flask-Navigation 0.2.0
-itsdangerous     1.1.0
 Jinja2           2.10.1
 MarkupSafe       1.1.1
-pip              19.2.3
-selenium         3.141.0
 setuptools       40.6.2
 urllib3          1.25.3
 Werkzeug         0.15.6
