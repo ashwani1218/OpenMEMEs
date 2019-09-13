@@ -1,12 +1,23 @@
 function toRegistration(){
     window.location.href = "/registration"
 }
-function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-}
+// function signOut() {
+//     $.ajax({
+//         type:"GET",
+//         url:"/logout",
+//         success:(data)=>{
+//             console.log(data)
+//             window.location.reload()
+//         },
+//         error:(e)=>{
+//             console.log(e)
+//         }
+//     })
+//     var auth2 = gapi.auth2.getAuthInstance();
+//     auth2.signOut().then(function () {
+//       console.log('User signed out.');
+//     });
+// }
 
 
 function onSignIn(googleUser) {
