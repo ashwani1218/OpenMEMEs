@@ -40,6 +40,12 @@ def customLogin():
         return redirect("/home") #If passwords match redirect to the home page
     return redirect("/")         #Else redirect back to the login page. Change this return method to alert invalid Credentials
 
+@app.route("/logout")
+def logout():
+    print(session)
+    if "email" in session:
+        session.pop("email")
+    return "OK"
 @app.route("/home")
 def home():
     '''
