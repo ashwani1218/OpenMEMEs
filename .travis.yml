@@ -14,8 +14,8 @@ services:
 before_script: pip install docker-compose
 
 script:
-  - pytest
+    - pytest
+    -docker-compose run app sh -c "python manage.py test"
 # script:
-#     -docker-compose run app sh -c "python manage.py test"
 
     
