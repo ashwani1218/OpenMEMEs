@@ -118,7 +118,7 @@ def newPost():
                 return redirect("/home")
             return render_template("error.html")
         else:
-            redirect("/")
+            return redirect("/")
 
             
 @app.errorhandler(401)
