@@ -42,10 +42,11 @@ def customLogin():
 
 @app.route("/logout")
 def logout():
-    print(session)
+    print("Session",session)
     if "email" in session:
         session.pop("email")
     return "OK"
+
 @app.route("/home")
 def home():
     '''
@@ -97,7 +98,7 @@ def userProfile():
 @app.route("/newpost",methods=["GET","POST"])
 def newPost():
     '''
-    This method on a GET request returns new post page to update a new post.
+    This method on a GET request returns new post page to update a post.
     On a POST request the method checks if the user is in session then gets the userId,
     postText from the form and enters it into db.
     If the post is successfully inserted into the db user is redirected to the home page else
@@ -108,7 +109,7 @@ def newPost():
     else:
         if 'email' in session:  
             email=session['email'] 
-            print(email+"This shouldnt be working")
+            #print(email+"This shouldnt be working")
             userId=db.getIdByEmail(email)
             postText=request.form["postText"]
             post = db.new_post(userId,postText)

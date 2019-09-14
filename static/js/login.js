@@ -1,24 +1,6 @@
 function toRegistration(){
     window.location.href = "/registration"
 }
-// function signOut() {
-//     $.ajax({
-//         type:"GET",
-//         url:"/logout",
-//         success:(data)=>{
-//             console.log(data)
-//             window.location.reload()
-//         },
-//         error:(e)=>{
-//             console.log(e)
-//         }
-//     })
-//     var auth2 = gapi.auth2.getAuthInstance();
-//     auth2.signOut().then(function () {
-//       console.log('User signed out.');
-//     });
-// }
-
 
 function onSignIn(googleUser) {
     console.log("as")
@@ -27,7 +9,6 @@ function onSignIn(googleUser) {
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    
     
     $.ajax({
         type:'POST',
