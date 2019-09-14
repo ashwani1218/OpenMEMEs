@@ -26,6 +26,10 @@
           <div class="card card-signin my-5">
             <div class="card-body">
               <h5 class="card-title text-center">Sign In</h5>
+              {% if error %}
+                <p>{{error}}</p>
+              {% endif %}
+              
               <form class="form-signin" action="/login" method="POST">
                 <div class="form-label-group">
                   <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>

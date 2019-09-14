@@ -1,9 +1,11 @@
-function signOut() {
+function signOut(path) {
     $.ajax({
         type:"GET",
         url:"/logout",
         success:(data)=>{
-        
+            if(path){
+                window.location.href = path
+            }
             console.log(data+"User Logged out")
             window.location.reload()
         },
