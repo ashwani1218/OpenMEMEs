@@ -106,20 +106,18 @@ def newPost():
     if(request.method=="GET"):
         return render_template("newPost.html")
     else:
-        try:
-            if 'email' in session:  
-                email=session['email'] 
-                # print(email)
-                userId=db.getIdByEmail(email)
-                postText=request.form["postText"]
-                post = db.new_post(userId,postText)
-                if(post):
-                    return redirect("/home")
-                return render_template("error.html")
-            else:
-                redirect("/")
-        except Exception as e:
-            print(e)
+        if 'email' in session:  
+            email=session['email'] 
+            print(email+"This shouldnt be working")
+            userId=db.getIdByEmail(email)
+            postText=request.form["postText"]
+            post = db.new_post(userId,postText)
+            if(post):
+                return redirect("/home")
+            return render_template("error.html")
+        else:
+            redirect("/")
+
             
 @app.errorhandler(401)
 def custom_401(error):
