@@ -135,6 +135,6 @@ def custom_401(error):
 def page_not_found(error):
     return render_template('404.html'), 404
 
-app.run(host="0.0.0.0",port=8000,debug=True)
+# app.run(host="0.0.0.0",port=8000,debug=True)
 
 
