@@ -38,6 +38,7 @@ def customLogin():
     if(pwd==user):
         session['email']=email
         return redirect("/home") #If passwords match redirect to the home page
+    flash("Bhai kya karra he?", category="error")
     return redirect("/")         #Else redirect back to the login page. Change this return method to alert invalid Credentials
 
 @app.route("/logout")
@@ -105,15 +106,11 @@ def newPost():
     redirected to a error page and then to the home page.
     '''
     if(request.method=="GET"):
-        if 'email' in session:  
-            return render_template("newPost.html")
-        else:
-            return redirect("/")
-    elif(request.method=="POST"):
-        # try:
+        return render_template("newPost.html")
+    else:
         if 'email' in session:  
             email=session['email'] 
-            print(email)
+            #print(email+"This shouldnt be working")
             userId=db.getIdByEmail(email)
             postText=request.form["postText"]
             post = db.new_post(userId,postText)
@@ -121,10 +118,7 @@ def newPost():
                 return redirect("/home")
             return render_template("error.html")
         else:
-            return redirect("/")
-        # except Exception as e:
-        #     print(e)
-            # redirect("/")
+            redirect("/")
 
             
 @app.errorhandler(401)
