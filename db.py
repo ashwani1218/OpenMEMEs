@@ -97,12 +97,16 @@ def getUserByEmail(email):
 def getPasswordByEmail(email):
     '''
     This method finds user's password using email
+    Returns none if user doesn't exist
     '''
     with sqlite3.connect(DB_FILE) as con:
         cur = con.cursor()
         cur.execute("SELECT password FROM users Where email=? ",(email,))
-        password = cur.fetchone()[0]
-        return password
+        password = cur.fetchone()
+        if password:
+            return password[0]
+        else:
+            return None
 
 def getNameByEmail(email):
     '''

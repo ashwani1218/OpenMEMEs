@@ -38,6 +38,7 @@ def customLogin():
     if(pwd==user):
         session['email']=email
         return redirect("/home") #If passwords match redirect to the home page
+    flash("Bhai kya karra he?", category="error")
     return redirect("/")         #Else redirect back to the login page. Change this return method to alert invalid Credentials
 
 @app.route("/logout")
@@ -128,6 +129,6 @@ def custom_401(error):
 def page_not_found(error):
     return render_template('404.html'), 404
 
-app.run(host="0.0.0.0",port=8000,debug=True)
+app.run(host="0.0.0.0",port=8000, debug=True)
 
 
