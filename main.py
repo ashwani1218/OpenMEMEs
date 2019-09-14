@@ -46,7 +46,7 @@ def logout():
     print("Session",session)
     if "email" in session:
         session.pop("email")
-    return "OK"
+        return "OK"
 
 @app.route("/home")
 def home():
@@ -129,6 +129,7 @@ def custom_401(error):
 def page_not_found(error):
     return render_template('404.html'), 404
 
-# app.run(host="0.0.0.0",port=8000,debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0",port=8000,debug=True)
 
 
