@@ -108,7 +108,7 @@ def newPost():
         if 'email' in session:  
             return render_template("newPost.html")
         else:
-            redirect("/")
+            return redirect("/")
     elif(request.method=="POST"):
         # try:
         if 'email' in session:  
@@ -121,7 +121,7 @@ def newPost():
                 return redirect("/home")
             return render_template("error.html")
         else:
-            redirect("/")
+            return redirect("/")
         # except Exception as e:
         #     print(e)
             # redirect("/")
