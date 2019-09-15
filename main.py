@@ -75,6 +75,8 @@ def registration():
             name = request.form["name"]
             email = request.form["email"]
             password = request.form["password"]
+            if len(name) == 0 or len(email) ==0 or len(password)==0:
+                return "Kya karta he bhau"
             pwd=str(hashlib.sha256(password.encode()).digest())
             already_registered = db.insertOnRegistration(name,email,pwd)
             if(already_registered):
@@ -118,7 +120,7 @@ def newPost():
             uploaded = upload_file(request)
             if uploaded:
                 return redirect("/home")
-            return render_template("error.html")
+            return render_template("error.html",error="Kya karta he bhau")
             
         else:
             return redirect("/")
@@ -147,7 +149,7 @@ def upload_file(request):
         #print(email+"This shouldnt be working")
         userId=db.getIdByEmail(email)
         postText=request.form["postText"]
-        if not postText.isalnum():
+        if not postText.isalnum() or postText == "":
             return False
         isPostSuccessful = db.new_post(userId,postText,filename)
         return isPostSuccessful
