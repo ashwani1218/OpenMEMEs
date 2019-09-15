@@ -53,6 +53,7 @@ def logout():
     if "email" in session:
         session.pop("email")
         return "OK"
+    return "NOT OK"
 
 @app.route("/home")
 def home():
