@@ -140,7 +140,7 @@ def upload_file(request):
         flash('No selected file')
         return redirect(request.url)
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)+str(uuid.uuid4())
+        filename = str(uuid.uuid4()) + secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         email=session['email'] 
