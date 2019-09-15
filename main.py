@@ -3,10 +3,12 @@ import hashlib
 import os
 import db
 from werkzeug.utils import *
+import uuid
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '30ea67d46f46a8ca1e9a9d82'
-app.config['UPLOAD_FOLDER'] = './static/images'
+app.config['UPLOAD_FOLDER'] = './images'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 """
@@ -138,7 +140,7 @@ def upload_file(request):
         flash('No selected file')
         return redirect(request.url)
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
+        filename = secure_filename(file.filename)+str(uuid.uuid4())
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         email=session['email'] 
