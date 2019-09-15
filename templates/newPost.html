@@ -34,10 +34,11 @@
         </div>
     </nav>
     <div class="container">
-        <form onsubmit="return validate()" action="/newpost" method="POST">
+        <form onsubmit="return validate()" action="/newpost" method="POST" enctype=multipart/form-data>
             <div class="form-group">
                 <label for="new">New Post</label>
                 <textarea class="form-control" rows="5" id="new" name="postText" placeholder="Whats Up?"></textarea>
+                <input type=file name=file>
             </div>
             <button type="submit" class="btn btn-primary" >Submit</button>
         </form>

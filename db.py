@@ -25,8 +25,7 @@ def createDB():
         id INTEGER PRIMARY KEY,
         user_id INTEGER NOT NULL,
         post TEXT,
-        post_image BLOB,
-        post_video BLOB
+        post_image TEXT
     )
     """
     cur.execute(sql_command)
