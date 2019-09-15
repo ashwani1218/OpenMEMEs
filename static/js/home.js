@@ -3,6 +3,10 @@ function signOut(path) {
         type:"GET",
         url:"/logout",
         success:(data)=>{
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.'); 
+            });
             if(path){
                 window.location.href = path
             }
@@ -13,12 +17,7 @@ function signOut(path) {
             console.log(e)
         }
     })
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        console.log('User signed out.');
-        // TODO: Change the url to home after session is implemented.   
-        window.open("/","_self");
-    });
+    
 
 }
 function gapiInit(){
