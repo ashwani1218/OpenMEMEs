@@ -70,14 +70,14 @@ def get_posts(posts=10):
         cur.execute("select post,post_image,name FROM posts INNER JOIN users on posts.user_id=users.id ORDER BY posts.id DESC LIMIT ?", (posts,))
         return cur.fetchall()
 
-def new_post(userId,postText):
+def new_post(userId,postText, image_path):
     '''
     This method inserts post into the db.
     '''
     with sqlite3.connect(DB_FILE) as con:
         cur = con.cursor()
         try:
-            cur.execute("Insert into posts (user_id,post,post_image) values (?,?,?)",(userId,postText,"NULL"))
+            cur.execute("Insert into posts (user_id,post,post_image) values (?,?,?)",(userId,postText,image_path))
             con.commit()
             return True
         except:

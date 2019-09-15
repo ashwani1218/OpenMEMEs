@@ -113,16 +113,11 @@ def newPost():
         return render_template("newPost.html")
     else:
         if 'email' in session:  
-            email=session['email'] 
-            #print(email+"This shouldnt be working")
-            userId=db.getIdByEmail(email)
-            postText=request.form["postText"]
-            
-            post = db.new_post(userId,postText)
-            if(post):
-                upload_file(request)
+            uploaded = upload_file(request)
+            if uploaded:
                 return redirect("/home")
             return render_template("error.html")
+            
         else:
             return redirect("/")
 
@@ -145,9 +140,19 @@ def upload_file(request):
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return redirect("/home")
+
+        email=session['email'] 
+        #print(email+"This shouldnt be working")
+        userId=db.getIdByEmail(email)
+        postText=request.form["postText"]
+        isPostSuccessful = db.new_post(userId,postText,filename)
+        return isPostSuccessful
     return redirect("/newpost")
-            
+
+@app.route('/uploads/<filename>')
+def get_uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
 @app.errorhandler(401)
 def custom_401(error):
     return Response('You tried to access something that shouldn\'t be accessed', 401, {'WWW-Authenticate':'Basic realm="Login Required"'})
