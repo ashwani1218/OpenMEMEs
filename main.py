@@ -1,10 +1,14 @@
 from flask import *
 import hashlib
-
+import os
 import db
+from werkzeug.utils import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '30ea67d46f46a8ca1e9a9d82'
+app.config['UPLOAD_FOLDER'] = './static/images'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
 """
 Creates a Database is already not present
 """
@@ -113,13 +117,36 @@ def newPost():
             #print(email+"This shouldnt be working")
             userId=db.getIdByEmail(email)
             postText=request.form["postText"]
+            
             post = db.new_post(userId,postText)
             if(post):
+                upload_file(request)
                 return redirect("/home")
             return render_template("error.html")
         else:
             return redirect("/")
 
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def upload_file(request):
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+    file = request.files['file']
+    # if user does not select file, browser also
+    # submit an empty part without filename
+    if file.filename == '':
+        flash('No selected file')
+        return redirect(request.url)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return redirect("/home")
+    return redirect("/newpost")
             
 @app.errorhandler(401)
 def custom_401(error):
@@ -128,7 +155,6 @@ def custom_401(error):
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=8000,debug=True)
 
