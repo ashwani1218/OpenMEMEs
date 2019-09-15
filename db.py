@@ -67,7 +67,7 @@ def get_posts(posts=10):
     '''
     with sqlite3.connect(DB_FILE) as con:
         cur = con.cursor()
-        cur.execute("select post,post_image,post_video,name FROM posts INNER JOIN users on posts.user_id=users.id ORDER BY posts.id DESC LIMIT ?", (posts,))
+        cur.execute("select post,post_image,name FROM posts INNER JOIN users on posts.user_id=users.id ORDER BY posts.id DESC LIMIT ?", (posts,))
         return cur.fetchall()
 
 def new_post(userId,postText):
@@ -77,7 +77,7 @@ def new_post(userId,postText):
     with sqlite3.connect(DB_FILE) as con:
         cur = con.cursor()
         try:
-            cur.execute("Insert into posts (user_id,post,post_image,post_video) values (?,?,?,?)",(userId,postText,"NULL","NULL"))
+            cur.execute("Insert into posts (user_id,post,post_image) values (?,?,?)",(userId,postText,"NULL"))
             con.commit()
             return True
         except:
