@@ -145,6 +145,8 @@ def upload_file(request):
         #print(email+"This shouldnt be working")
         userId=db.getIdByEmail(email)
         postText=request.form["postText"]
+        if not postText.isalnum():
+            return False
         isPostSuccessful = db.new_post(userId,postText,filename)
         return isPostSuccessful
     return redirect("/newpost")
